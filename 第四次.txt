@@ -1,0 +1,152 @@
+第四次
+4.1打印递归
+#include<iostream>
+#include<cmath>//不要忘了申明这个
+
+using namespace std;
+
+void p(int n)//这是一个递归的问题。
+{
+    if(n<3)
+    {
+        cout<<'-';
+    }
+    else
+    {
+        if (n>=3)
+            p(n/3);
+        for (int i=1;i<=n/3;i++)
+            cout<<' ';
+        if (n>=3)
+        {
+            p(n/3);
+        }
+    }
+}
+int main()
+{
+    int line;
+    while(cin>>line)
+    {
+        int num=(int)pow(3,line);
+        p(num);
+        cout<<endl;//不要忘了提行
+    }
+}
+
+4.2判断足球的走位
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int row,col,num;
+    while(cin>>row>>col>>num)
+    {
+        if (row==0||col==0||num==0)
+            break;
+        char array[100][100];//存储方向信息
+        int s[100][100]={0};//存储经过了几次
+        for (int i =0;i<row;i++)
+        {
+            for (int j=0;j<col;j++)
+                cin>>array[i][j];
+        }
+        int m=0;
+        s[m][num-1]=1;//开始的位置
+        int  k=2*col*row;//防止无限循环，方便line73处判断是否进入循环，二维数组上的值大于,为什么是2倍呢？可以覆盖所有循环，同时保证可能已经走出的所有情况，也就是1倍。
+        while(k--)
+        {
+            switch(array[m][num-1])
+            {
+            case'N':
+                {
+                    if (m!=0)
+                    {
+                        m--;
+                        s[m][num-1]++;
+                    }
+                    break;
+                }
+            case'S':
+                {
+                    if (m!=row-1)//???
+                    {
+                        m++;
+                        s[m][num-1]++;
+                    }
+                    break;
+                }
+            case'W':
+                {
+                    if (num-1!=0)
+                    {
+                        num--;
+                        s[m][num-1]++;
+
+                    }
+                    break;
+                }
+            case'E':
+                {
+                    if (num-1!=col-1)
+                    {
+                        num++;
+                        s[m][num-1]++;
+                    }
+                        break;//这四个break的作用是跳出switch，重新判定新位置的switch。
+                }
+            }
+        }
+        int c1=0,c2=0;
+        for (int i=0;i<row;i++)
+        {
+            for (int j=0;j<col;j++)
+            {
+                if (s[i][j]==1)
+                {
+                    c1++;
+                }
+                else if(s[i][j]>1)
+                {
+                    c2++;
+                }
+            }
+        }
+        if(c2==0)
+            cout<<c1<<" step(s) to exit"<<endl;
+        else
+            cout<<c1<<" step(s) before a loop of "<<c2<<" step(s)"<<endl;
+    }
+}
+4.4计算位置为加权的数
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+using namespace std;
+
+int main()
+{
+    int l,ans;
+    char c;
+    while(1)
+    {
+        c=getchar();//读取一个字符
+        if (c=='#')
+        {
+            break;
+        }
+        l=1;
+        ans=0;
+        while(c!='\n')
+        {
+            if (c!=' ')
+            {
+                ans=ans+(c-'A'+1)*l;
+            }
+            l++;
+            c=getchar();
+        }
+        cout<<ans<<endl;
+    }
+}

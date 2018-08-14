@@ -1,0 +1,192 @@
+第三次
+3.1汉诺塔问题（递归重要）
+#include <iostream>
+
+using namespace std;
+int counts=1;
+void jishu(int n,char x,char y,char z)//为了计数而单独又弄了一次汉诺塔过程，从国一个counts来计数，但是后面需要重置counts的值为1.
+{
+
+    if (n==1)
+    {
+    }
+    else
+    {
+        jishu(n-1,x,z,y);
+        counts++;
+        jishu(n-1,y,x,z);
+        counts++;
+    }
+}
+void hannita(int n,char x,char y,char z)
+{
+    int counts=1;//这个地方需要充值counts的值
+    if (n==1)
+    {
+        cout<<x<<" -> "<<z<<endl;
+    }
+    else
+    {
+        hannita(n-1,x,z,y);
+        cout <<x<<" -> "<<z<<endl;
+        hannita(n-1,y,x,z);
+    }
+}
+int main()
+{
+    int num,i;
+    cin>>num;
+    for (i=0;i<num;i++)
+    {
+        int n;
+        counts=1;
+        char x='A';
+        char y='B';
+        char z='C';
+        cin>>n;
+        jishu(n,x,y,z);
+        cout<<counts<<endl;
+        hannita(n,x,y,z);
+    }
+}
+
+3.2画三种画
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+int c;
+while(cin>>c)//这个很巧妙一定要记住，如何退出循环
+{
+    if (c==-1)
+        break;
+    else if (c==1)
+    {
+        int m, n, i;
+        cin >> m;
+        for ( n = 1; n <= m; n++ )
+        {
+        for ( i = 1; i <= m - n; i++ )
+        {
+        cout<<" " ;
+        }
+        for ( i = 1; i <= 2 * n - 1; i ++ )
+        {
+        cout<<("*");
+        }
+
+        cout<<("\n");
+        }
+        cout<<"\n";
+    }
+    else if (c==2)
+    {
+        int a, b, p, q;
+cin >> a >> b;
+for ( p = 1; p <= b; p++ )
+{
+for ( q = 1; q <= b - p; q ++ )
+{
+cout<<(" ");
+}
+for ( q = 1; q <= a; q ++ )
+{
+cout<<("*");
+}
+
+cout<<("\n");
+}
+cout<<"\n";
+    }
+    else
+    {
+        int x, y, u, v;
+cin >> x >> y;
+for ( u = 1; u <= y; u ++ )
+{
+for ( v = 1; v <= x; v ++ )
+{
+cout<<("*");
+}
+cout<<("\n");
+}
+cout<<"\n";
+    }
+}
+
+}
+
+
+3.3蚂蚁问题
+蚂蚁碰面转身和直接通过是等价的（蚂蚁没有区别）
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int n;
+    cin>>n;
+    while(n--)
+    {
+        int len,num,i,a=0,max=0,min=0;
+        cin>>len>>num;
+        for (i=0;i<num;i++)
+        {
+            cin>>a;
+            a=a>len-a?a:len-a;
+            max=max>a?max:a;
+            min=min>len-a?min:len-a;//这个地方有点难理解，可以背一下
+        }
+        cout<<min<<" "<<max<<endl;
+    }
+}
+
+3.4统计有多少数
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int n;
+
+    {
+        while(cin>>n)//这个要学习一个，如果用while(1)会超时。
+        {
+        int counts=1;
+        if (n==1)
+        {
+            cout<<n<<endl;
+        }
+        else if(n==0)
+        {
+            break;
+        }
+        else
+        {
+            while(n!=1)
+            {
+                if(n%2==0)
+                {
+                    n=n/2;
+                }
+                else
+                {
+                    n=3*n+1;
+                }
+                counts++;
+            }
+            cout<<counts<<endl;
+        }
+        }
+
+    }
+    return 0;
+}
+
+
+3.5贪吃蛇问题
